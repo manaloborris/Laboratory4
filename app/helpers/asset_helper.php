@@ -28,13 +28,13 @@ if (!function_exists('css_url')) {
      */
     function css_url($filename) {
         $filename = ltrim($filename, '/');
-        // Use direct path for CSS - works better on all platforms including Render
+        // The Docker image serves the public directory as Apache's document root.
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
         if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
         }
         $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-        return $protocol . $host . '/public/' . $filename;
+        return $protocol . $host . '/' . $filename;
     }
 }
 
