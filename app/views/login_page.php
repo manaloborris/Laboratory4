@@ -51,7 +51,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     <canvas id="cute3d-bg"></canvas>
     <div class="cyber-shell">
         <h1 class="cyber-title">Welcome!</h1>
-        <p class="cyber-copy">Click the button below to view the user records.</p>
+        <p class="cyber-copy">Click the Bu is tton.</p>
         <a class="cyber-btn" href="<?= site_url('users') ?>" data-link>View Users</a>
     </div>
 
