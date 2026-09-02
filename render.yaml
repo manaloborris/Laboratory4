@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: laboratory4
+    runtime: php
+    plan: free
+    
+    # Environment variables
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_URL
+        # Set this to your actual Render service URL
+        # Example: https://laboratory4.onrender.com/
+        value: https://your-render-app-name.onrender.com/
+    
+    # Optional: buildCommand if you need to run setup
+    # buildCommand: php app/migrations/001_create_users_table.php
