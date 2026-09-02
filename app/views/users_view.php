@@ -148,78 +148,38 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             body {
                 align-items: center;
                 justify-content: center;
-                padding: 16px;
+                padding: 12px;
                 min-height: 100vh;
             }
 
             .glass {
                 width: 100%;
-                padding: 68px 14px 24px;
+                padding: 68px 12px 16px;
                 border-radius: 18px;
-                margin: auto;
             }
 
             .glass h1 {
-                margin-bottom: 16px;
-                font-size: clamp(1.25rem, 7vw, 1.8rem);
+                margin-bottom: 14px;
+                font-size: clamp(1.2rem, 6vw, 1.6rem);
                 letter-spacing: 0.08em;
             }
 
-            /* Responsive card-style table: each user row becomes a card */
-            .glass thead {
-                display: none;
-            }
-
-            .glass tbody,
-            .glass tbody tr,
-            .glass tbody td {
-                display: block;
+            /* Same table layout as desktop, responsive: horizontal scroll when it does not fit */
+            .glass table {
+                min-width: 680px;
                 width: 100%;
             }
 
-            .glass tbody tr {
-                margin: 0 0 12px;
-                padding: 6px;
-                border: 1px solid rgba(103, 232, 249, 0.25);
-                border-radius: 12px;
-                background: rgba(10, 14, 23, 0.35);
+            .glass th,
+            .glass td {
+                padding: 10px 12px;
+                white-space: nowrap;
             }
 
-            .glass tbody tr:hover {
-                transform: scale(1.01);
-            }
-
-            .glass tbody tr:last-child {
-                margin-bottom: 0;
-            }
-
-            .glass tbody td {
-                position: relative;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 8px;
-                padding: 9px 10px;
-                border-bottom: dashed 1px rgba(103, 232, 249, 0.12);
-                text-align: right;
-                font-size: 0.8rem;
-                white-space: normal;
-                word-break: break-word;
-            }
-
-            .glass tbody td:last-child {
-                border-bottom: none;
-            }
-
-            .glass tbody td::before {
-                content: attr(data-label);
-                flex: none;
-                font-weight: 700;
-                color: #67e8f9;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                font-size: 0.68rem;
-                text-align: left;
+            .table-scroll {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                margin: 0 auto;
             }
 
             .back-btn {
@@ -229,6 +189,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                 font-size: 0.75rem;
             }
         }
+
 @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
