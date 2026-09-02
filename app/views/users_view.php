@@ -183,6 +183,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             from { opacity: 0; transform: translateX(-10px); }
             to { opacity: 1; transform: translateX(0); }
         }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(8px); }
+        }
         body { animation: fadeIn 0.25s ease-out; }
         .glass { animation: fadeIn 0.3s ease-out; }
         .glass h1 { animation: fadeIn 0.3s ease-out both; }
@@ -195,6 +199,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         .glass tbody tr:nth-child(4) { animation-delay: 0.14s; }
         .glass tbody tr:nth-child(5) { animation-delay: 0.17s; }
         .glass tbody tr:nth-child(n+6) { animation-delay: 0.2s; }
+        .glass.leaving { animation: fadeOut 0.18s ease-in forwards; }
         .glass tbody tr:hover { transform: scale(1.02); }
         .back-btn {
             position: absolute;
@@ -261,8 +266,17 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                     
                     btn.classList.add('loading');
                     btn.innerHTML = '<span class="loading-spinner"></span>Loading...';
-                    
-                    history.back();
+
+                    const glass = document.querySelector('.glass');
+                    if (!glass) {
+                        history.back();
+                        return;
+                    }
+
+                    glass.classList.add('leaving');
+                    glass.addEventListener('animationend', function() {
+                        history.back();
+                    }, { once: true });
                 });
             }
         });
