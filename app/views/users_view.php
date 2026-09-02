@@ -250,7 +250,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             const glass = document.querySelector('.glass');
             if (glass) {
                 glass.style.opacity = '1';
-                glass.style.animation = 'fadeIn 0.3s ease-out';
+                glass.style.removeProperty('animation');
             }
         });
         
@@ -269,13 +269,13 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
                     const glass = document.querySelector('.glass');
                     if (!glass) {
-                        window.location.assign('<?= site_url('/') ?>');
+                        window.location.assign('/');
                         return;
                     }
 
                     glass.classList.add('leaving');
                     glass.addEventListener('animationend', function() {
-                        window.location.assign('<?= site_url('/') ?>');
+                        window.location.assign('/');
                     }, { once: true });
                 });
             }
@@ -293,6 +293,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             const glass = document.querySelector('.glass');
             if (glass) {
                 glass.style.opacity = '1';
+                glass.style.removeProperty('animation');
             }
         });
         
