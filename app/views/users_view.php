@@ -146,14 +146,17 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
         @media (max-width: 640px) {
             body {
-                align-items: flex-start;
-                padding: 12px;
+                align-items: center;
+                justify-content: center;
+                padding: 16px;
+                min-height: 100vh;
             }
 
             .glass {
                 width: 100%;
-                padding: 68px 12px 16px;
+                padding: 68px 14px 24px;
                 border-radius: 18px;
+                margin: auto;
             }
 
             .glass h1 {
@@ -162,22 +165,61 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                 letter-spacing: 0.08em;
             }
 
-            .glass th,
-            .glass td {
-                padding: 10px 8px;
+            /* Responsive card-style table: each user row becomes a card */
+            .glass thead {
+                display: none;
+            }
+
+            .glass tbody,
+            .glass tbody tr,
+            .glass tbody td {
+                display: block;
+                width: 100%;
+            }
+
+            .glass tbody tr {
+                margin: 0 0 12px;
+                padding: 6px;
+                border: 1px solid rgba(103, 232, 249, 0.25);
+                border-radius: 12px;
+                background: rgba(10, 14, 23, 0.35);
+            }
+
+            .glass tbody tr:hover {
+                transform: scale(1.01);
+            }
+
+            .glass tbody tr:last-child {
+                margin-bottom: 0;
+            }
+
+            .glass tbody td {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 8px;
+                padding: 9px 10px;
+                border-bottom: dashed 1px rgba(103, 232, 249, 0.12);
+                text-align: right;
+                font-size: 0.8rem;
                 white-space: normal;
                 word-break: break-word;
             }
 
-            .glass table {
-                min-width: 0;
-                width: 100%;
-                font-size: 0.72rem;
+            .glass tbody td:last-child {
+                border-bottom: none;
             }
 
-            .table-scroll {
-                overflow-x: auto;
-                margin:  0 auto;
+            .glass tbody td::before {
+                content: attr(data-label);
+                flex: none;
+                font-weight: 700;
+                color: #67e8f9;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                font-size: 0.68rem;
+                text-align: left;
             }
 
             .back-btn {
@@ -187,7 +229,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                 font-size: 0.75rem;
             }
         }
-        @keyframes fadeIn {
+@keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
@@ -248,12 +290,12 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                 <tbody>
                     <?php foreach ($users as $user): ?>
                         <tr>
-                            <td><?= htmlspecialchars($user['id'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($user['firstname'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($user['lastname'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($user['email'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($user['username'] ?? '') ?></td>
-                        </tr>
+    <td data-label="ID"><?= htmlspecialchars($user['id'] ?? '') ?></td>
+    <td data-label="First Name"><?= htmlspecialchars($user['firstname'] ?? '') ?></td>
+    <td data-label="Last Name"><?= htmlspecialchars($user['lastname'] ?? '') ?></td>
+    <td data-label="Email"><?= htmlspecialchars($user['email'] ?? '') ?></td>
+    <td data-label="Username"><?= htmlspecialchars($user['username'] ?? '') ?></td>
+</tr>
                     <?php endforeach; ?>
                 </tbody>
                 </table>

@@ -182,8 +182,6 @@ body {
     0%,100% { transform: translateY(0) rotate(-0.5deg); }
     50% { transform: translateY(-10px) rotate(0.5deg); }
 }
-    50% { opacity:1; transform: scale(1.03); }
-}
 
 @keyframes loaderDot {
     0%,60%,100% { transform: translateY(0); opacity:0.35; }
