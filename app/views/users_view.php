@@ -37,7 +37,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-radius: 24px;
-            padding: 30px 24px 24px;
+            padding: 72px 24px 24px;
             overflow: hidden;
             text-align: center;
         }
@@ -64,11 +64,19 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         .glass table {
             position: relative;
             width: 100%;
+            min-width: 680px;
             border-collapse: collapse;
             border-radius: 18px;
             background: rgba(10, 14, 23, 0.46);
             box-shadow: inset 0 0 0 1px rgba(103, 232, 249, 0.12);
             margin: 0 auto;
+        }
+
+        .table-scroll {
+            position: relative;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .glass th,
@@ -111,9 +119,11 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         }
 
         .back-btn {
-            position: relative;
+            position: absolute;
+            top: 18px;
+            right: 20px;
             display: inline-block;
-            margin: 0 0 20px;
+            margin: 0;
             padding: 10px 18px;
             border: 1px solid rgba(103, 232, 249, 0.52);
             border-radius: 12px;
@@ -132,6 +142,38 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             background: linear-gradient(135deg, rgba(103, 232, 249, 0.28), rgba(192, 132, 252, 0.22));
             transform: translateY(-1px);
             box-shadow: 0 0 22px rgba(103, 232, 249, 0.35);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                align-items: flex-start;
+                padding: 12px;
+            }
+
+            .glass {
+                width: 100%;
+                padding: 68px 12px 16px;
+                border-radius: 18px;
+            }
+
+            .glass h1 {
+                margin-bottom: 16px;
+                font-size: clamp(1.25rem, 7vw, 1.8rem);
+                letter-spacing: 0.08em;
+            }
+
+            .glass th,
+            .glass td {
+                padding: 12px 14px;
+                white-space: nowrap;
+            }
+
+            .back-btn {
+                top: 14px;
+                right: 14px;
+                padding: 9px 13px;
+                font-size: 0.75rem;
+            }
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -165,7 +207,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         <button class="back-btn" type="button" data-back-btn>← Back</button>
         <h1>Mga Bai na User</h1>
         <?php if (!empty($users)): ?>
-            <table>
+            <div class="table-scroll">
+                <table>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -186,7 +229,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
-            </table>
+                </table>
+            </div>
         <?php else: ?>
             <div class="empty">No users found in the database.</div>
         <?php endif; ?>
