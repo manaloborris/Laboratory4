@@ -48,6 +48,13 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     </style>
 </head>
 <body>
+    <div id="loader-overlay">
+        <div class="loader-card">
+            <div class="loader-ring"></div>
+            <img class="loader-img" src="<?= img_url('load.png') ?>" alt="Loading..." loading="eager" decoding="async">
+            <div class="loader-text">Loading<span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+    </div>
     <canvas id="cute3d-bg"></canvas>
     <div class="cyber-shell">
         <h1 class="cyber-title">Welcome!</h1>
@@ -64,6 +71,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                     if (!this.classList.contains('loading')) {
                         this.classList.add('loading');
                         this.innerHTML = '<span class="loading-spinner"></span>Loading...';
+                        var overlay = document.getElementById('loader-overlay');
+                        if (overlay) {
+                            overlay.classList.remove('done');
+                        }
                     }
                 });
             });
@@ -96,6 +107,28 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                 shell.style.opacity = '1';
             }
         });
+    </script>
+    <script>
+        (function() {
+            function hideLoader() {
+                var el = document.getElementById('loader-overlay');
+                if (el) {
+                    el.classList.add('done');
+                }
+            }
+            if (document.readyState === 'complete') {
+                setTimeout(hideLoader, 500);
+            } else {
+                window.addEventListener('load', function() {
+                    setTimeout(hideLoader, 500);
+                });
+            }
+            window.addEventListener('pageshow', function(e) {
+                if (e.persisted && document.getElementById('loader-overlay')) {
+                    hideLoader();
+                }
+            });
+        })();
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="<?= js_url('js/cute3d.js') ?>"></script>

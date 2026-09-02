@@ -164,8 +164,20 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
             .glass th,
             .glass td {
-                padding: 12px 14px;
-                white-space: nowrap;
+                padding: 10px 8px;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            .glass table {
+                min-width: 0;
+                width: 100%;
+                font-size: 0.72rem;
+            }
+
+            .table-scroll {
+                overflow-x: auto;
+                margin:  0 auto;
             }
 
             .back-btn {
@@ -211,6 +223,13 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     </style>
 </head>
 <body>
+    <div id="loader-overlay">
+        <div class="loader-card">
+            <div class="loader-ring"></div>
+            <img class="loader-img" src="<?= img_url('load.png') ?>" alt="Loading..." loading="eager" decoding="async">
+            <div class="loader-text">Loading<span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+    </div>
     <canvas id="cute3d-bg"></canvas>
     <div class="glass">
         <button class="back-btn" type="button" data-back-btn>← Back</button>
@@ -262,6 +281,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                     if (this.classList.contains('loading')) return;
                     
                     e.preventDefault();
+                    const loadOverlay = document.getElementById('loader-overlay');
+                    if (loadOverlay) {
+                        loadOverlay.classList.remove('done');
+                    }
                     const btn = this;
                     const originalText = btn.textContent;
                     
@@ -302,6 +325,28 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         window.addEventListener('pagehide', function() {
             document.body.style.opacity = '1';
         });
+    </script>
+    <script>
+        (function() {
+            function hideLoader() {
+                var el = document.getElementById('loader-overlay');
+                if (el) {
+                    el.classList.add('done');
+                }
+            }
+            if (document.readyState === 'complete') {
+                setTimeout(hideLoader, 500);
+            } else {
+                window.addEventListener('load', function() {
+                    setTimeout(hideLoader, 500);
+                });
+            }
+            window.addEventListener('pageshow', function(e) {
+                if (e.persisted && document.getElementById('loader-overlay')) {
+                    hideLoader();
+                }
+            });
+        })();
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="<?= js_url('js/cute3d.js') ?>"></script>

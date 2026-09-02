@@ -57,3 +57,22 @@ if (!function_exists('js_url')) {
         return $protocol . $host . '/' . $filename;
     }
 }
+if (!function_exists('img_url')) {
+    /**
+     * Generate image file URL
+     * Uses direct path for reliable static file serving on all platforms
+     *
+     * @param string $filename Image filename or path
+     * @return string Full URL to the image file
+     */
+    function img_url($filename) {
+        $filename = ltrim($filename, '/');
+        // The Docker image serves the public directory as Apache's document root.
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
+        }
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        return $protocol . $host . '/' . $filename;
+    }
+}
