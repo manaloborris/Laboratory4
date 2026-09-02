@@ -225,7 +225,6 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 <body>
     <div id="loader-overlay">
         <div class="loader-card">
-            <div class="loader-ring"></div>
             <img class="loader-img" src="<?= img_url('load.png') ?>" alt="Loading..." loading="eager" decoding="async">
             <div class="loader-text">Loading<span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
         </div>
