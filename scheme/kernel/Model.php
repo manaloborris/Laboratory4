@@ -82,6 +82,13 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 */
 class Model {  
     /**
+     * Database connection instance
+     *
+     * @var object|null
+     */
+    public $db = null;
+
+    /**
      * Table Name of the Database
      *
      * @var string

@@ -240,9 +240,18 @@ if (php_sapi_name() === 'cli') {
     $method = 'GET';
     
 } else {
-    $base  = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
-	$path  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-	$url   = $router->sanitize_url(substr($path, strlen($base)) ?: '/');
+    $base = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '/index.php'), '/');
+    if (basename($base) === 'public') {
+        $base = rtrim(dirname($base), '/');
+    }
+
+    $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+    $url = $router->sanitize_url(
+        ($base !== '' && strpos($path, $base) === 0)
+            ? substr($path, strlen($base)) ?: '/'
+            : $path
+    );
+
     $method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
 }
 
