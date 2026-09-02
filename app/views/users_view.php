@@ -183,18 +183,18 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             from { opacity: 0; transform: translateX(-10px); }
             to { opacity: 1; transform: translateX(0); }
         }
-        body { animation: fadeIn 0.5s ease-out; }
-        .glass { animation: fadeIn 0.6s ease-out; }
-        .glass h1 { animation: fadeIn 0.7s ease-out 0.1s both; }
-        .glass table { animation: fadeIn 0.8s ease-out 0.2s both; }
-        .glass .empty { animation: fadeIn 0.6s ease-out 0.2s both; }
-        .glass tbody tr { animation: slideInRow 0.5s ease-out both; }
-        .glass tbody tr:nth-child(1) { animation-delay: 0.25s; }
-        .glass tbody tr:nth-child(2) { animation-delay: 0.3s; }
-        .glass tbody tr:nth-child(3) { animation-delay: 0.35s; }
-        .glass tbody tr:nth-child(4) { animation-delay: 0.4s; }
-        .glass tbody tr:nth-child(5) { animation-delay: 0.45s; }
-        .glass tbody tr:nth-child(n+6) { animation-delay: 0.5s; }
+        body { animation: fadeIn 0.25s ease-out; }
+        .glass { animation: fadeIn 0.3s ease-out; }
+        .glass h1 { animation: fadeIn 0.3s ease-out both; }
+        .glass table { animation: fadeIn 0.35s ease-out both; }
+        .glass .empty { animation: fadeIn 0.3s ease-out both; }
+        .glass tbody tr { animation: slideInRow 0.2s ease-out both; }
+        .glass tbody tr:nth-child(1) { animation-delay: 0.05s; }
+        .glass tbody tr:nth-child(2) { animation-delay: 0.08s; }
+        .glass tbody tr:nth-child(3) { animation-delay: 0.11s; }
+        .glass tbody tr:nth-child(4) { animation-delay: 0.14s; }
+        .glass tbody tr:nth-child(5) { animation-delay: 0.17s; }
+        .glass tbody tr:nth-child(n+6) { animation-delay: 0.2s; }
         .glass tbody tr:hover { transform: scale(1.02); }
         .back-btn {
             position: absolute;
@@ -245,7 +245,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             const glass = document.querySelector('.glass');
             if (glass) {
                 glass.style.opacity = '1';
-                glass.style.animation = 'fadeIn 0.6s ease-out';
+                glass.style.animation = 'fadeIn 0.3s ease-out';
             }
         });
         
@@ -262,21 +262,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                     btn.classList.add('loading');
                     btn.innerHTML = '<span class="loading-spinner"></span>Loading...';
                     
-                    const navigationTimeout = setTimeout(() => {
-                        // Don't wait for page to load, just go back
-                        history.back();
-                    }, 300);
-                    
-                    // ESC key to cancel loading
-                    const cancelHandler = (e) => {
-                        if (e.key === 'Escape') {
-                            clearTimeout(navigationTimeout);
-                            btn.classList.remove('loading');
-                            btn.textContent = originalText;
-                            document.removeEventListener('keydown', cancelHandler);
-                        }
-                    };
-                    document.addEventListener('keydown', cancelHandler);
+                    history.back();
                 });
             }
         });

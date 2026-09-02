@@ -24,8 +24,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         body {
             transition: opacity 0.5s ease-out;
         }
-        .cyber-shell { animation: fadeIn 0.6s ease-out; }
-        .cyber-shell.exit { animation: fadeOut 0.4s ease-in forwards; }
+        .cyber-shell { animation: fadeIn 0.35s ease-out; }
+        .cyber-shell.exit { animation: none; }
         .loading-spinner {
             display: inline-block;
             width: 16px;
@@ -58,48 +58,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             const links = document.querySelectorAll('[data-link]');
             
             links.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (this.classList.contains('loading')) return;
-                    
-                    const href = this.getAttribute('href');
-                    if (href && !href.startsWith('http') && href !== '#') {
-                        e.preventDefault();
-                        const btn = this;
-                        const originalText = btn.textContent;
-                        
-                        btn.classList.add('loading');
-                        btn.innerHTML = '<span class="loading-spinner"></span>Loading...';
-                        document.body.classList.add('page-loading');
-                        
-                        const shell = document.querySelector('.cyber-shell');
-                        if (shell) {
-                            shell.classList.add('exit');
-                        }
-                        
-                        const navTimeout = setTimeout(() => {
-                            window.location.href = href;
-                        }, 400);
-                        
-                        // Reset if navigation fails after 3 seconds
-                        setTimeout(() => {
-                            if (btn.classList.contains('loading')) {
-                                btn.classList.remove('loading');
-                                btn.textContent = originalText;
-                                document.body.classList.remove('page-loading');
-                            }
-                        }, 3500);
-                        
-                        // ESC key to cancel
-                        const cancelHandler = (e) => {
-                            if (e.key === 'Escape') {
-                                clearTimeout(navTimeout);
-                                btn.classList.remove('loading');
-                                btn.textContent = originalText;
-                                document.body.classList.remove('page-loading');
-                                document.removeEventListener('keydown', cancelHandler);
-                            }
-                        };
-                        document.addEventListener('keydown', cancelHandler);
+                link.addEventListener('click', function() {
+                    if (!this.classList.contains('loading')) {
+                        this.classList.add('loading');
+                        this.innerHTML = '<span class="loading-spinner"></span>Loading...';
                     }
                 });
             });
