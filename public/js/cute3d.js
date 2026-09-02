@@ -223,27 +223,37 @@
     var animalBuilders = [buildPanda, buildBear, buildCat, buildRabbit, buildFox, buildPenguin];
 
     var animals = [];
-    var positions = [
-        { x: -13, y: 2.5, z: -6,  s: 1.15 },
-        { x: 12,  y: 1.5, z: -4,  s: 1.0 },
-        { x: -8,  y: -3.5, z: -12, s: 0.8 },
-        { x: 9,   y: -2.5, z: -14, s: 0.9 },
-        { x: -16, y: -1.5, z: -18, s: 1.1 },
-        { x: 15,  y: 3.5, z: -16, s: 0.75 },
-        { x: 0,   y: -5,  z: -20, s: 1.3 }
+    // Compute positions from the visible frustum so animals always sit near
+    // the screen edges/corners (never behind the centered content), on any
+    // screen size or aspect ratio.
+    var aspect = window.innerWidth / window.innerHeight;
+    var halfH = Math.tan((50 * Math.PI) / 360); // tan(25deg) for 50deg vertical FOV
+    var slots = [
+        { nx: -0.85, ny: 0.52, z: -8,  s: 1.0 },   // top-left corner
+        { nx: 0.85,  ny: 0.50, z: -6,  s: 0.9 },   // top-right corner
+        { nx: -0.80, ny: -0.55, z: -12, s: 0.85 },  // bottom-left corner
+        { nx: 0.80,  ny: -0.52, z: -14, s: 0.95 },  // bottom-right corner
+        { nx: -0.95, ny: 0.0,  z: -16, s: 1.05 },   // left edge (peeking)
+        { nx: 0.95,  ny: -0.05, z: -18, s: 0.8 },   // right edge (peeking)
+        { nx: 0.0,   ny: 0.85, z: -24, s: 1.2 }     // top-center (far back)
     ];
 
-    for (var i = 0; i < positions.length; i++) {
+    for (var i = 0; i < slots.length; i++) {
         var builder = animalBuilders[i % animalBuilders.length];
         var animal = builder();
-        var p = positions[i];
-        animal.position.set(p.x, p.y, p.z);
-        animal.scale.set(p.s, p.s, p.s);
+        var slot = slots[i];
+        var dist = camera.position.z - slot.z;
+        var hw = halfH * dist * aspect;
+        var hh = halfH * dist;
+        var x = slot.nx * hw;
+        var y = slot.ny * hh;
+        animal.position.set(x, y, slot.z);
+        animal.scale.set(slot.s, slot.s, slot.s);
         animal.rotation.y = (i % 2 === 0 ? 1 : -1) * (0.5 + Math.random() * 0.4);
         scene.add(animal);
         animals.push({
             mesh: animal,
-            baseY: p.y,
+            baseY: y,
             phase: Math.random() * Math.PI * 2,
             speed: 0.4 + Math.random() * 0.35,
             amp: 0.35 + Math.random() * 0.4,
