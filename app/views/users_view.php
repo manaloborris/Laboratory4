@@ -196,7 +196,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         .glass tbody tr:nth-child(5) { animation-delay: 0.45s; }
         .glass tbody tr:nth-child(n+6) { animation-delay: 0.5s; }
         .glass tbody tr:hover { transform: scale(1.02); }
-        .back-btn { animation: fadeIn 0.6s ease-out both; }
+        .back-btn {
+            position: absolute;
+            animation: fadeIn 0.6s ease-out both;
+        }
         .back-btn.loading { opacity: 0.7; pointer-events: none; }
         .loading-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(103, 232, 249, 0.3); border-top: 2px solid #67e8f9; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 6px; }
         @keyframes spin { to { transform: rotate(360deg); } }
