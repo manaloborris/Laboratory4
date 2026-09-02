@@ -211,6 +211,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     </style>
 </head>
 <body>
+    <canvas id="cute3d-bg"></canvas>
     <div class="glass">
         <button class="back-btn" type="button" data-back-btn>← Back</button>
         <h1>Mga Bai na User</h1>
@@ -302,5 +303,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             document.body.style.opacity = '1';
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="<?= js_url('js/cute3d.js') ?>"></script>
 </body>
 </html>

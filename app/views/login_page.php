@@ -48,10 +48,11 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     </style>
 </head>
 <body>
+    <canvas id="cute3d-bg"></canvas>
     <div class="cyber-shell">
         <h1 class="cyber-title">Welcome!</h1>
-        <p class="cyber-copy">Click the Bu is tton</p>
-        <a class="cyber-btn" href="users" data-link>View Users</a>
+        <p class="cyber-copy">Click the button below to view the user records.</p>
+        <a class="cyber-btn" href="<?= site_url('users') ?>" data-link>View Users</a>
     </div>
 
     <script>
@@ -96,5 +97,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             }
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="<?= js_url('js/cute3d.js') ?>"></script>
 </body>
 </html>

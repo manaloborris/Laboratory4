@@ -94,3 +94,21 @@ body {
     background: linear-gradient(135deg, rgba(103, 232, 249, 0.28), rgba(192, 132, 252, 0.22));
     box-shadow: 0 0 22px rgba(103, 232, 249, 0.35);
 }
+
+/* ----------------------------------------------------------
+   3D Cute Animals Background (Three.js)
+   ---------------------------------------------------------- */
+#cute3d-bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+}
+
+.cyber-shell,
+.glass {
+    z-index: 1;
+}

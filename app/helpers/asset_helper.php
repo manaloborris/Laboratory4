@@ -41,12 +41,19 @@ if (!function_exists('css_url')) {
 if (!function_exists('js_url')) {
     /**
      * Generate JavaScript file URL
+     * Uses direct path for reliable static file serving on all platforms
      *
      * @param string $filename JS filename or path
      * @return string Full URL to the JS file
      */
     function js_url($filename) {
         $filename = ltrim($filename, '/');
-        return base_url('public/' . $filename);
+        // The Docker image serves the public directory as Apache's document root.
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
+        }
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        return $protocol . $host . '/' . $filename;
     }
 }
