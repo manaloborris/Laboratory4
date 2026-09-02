@@ -88,7 +88,22 @@ $config['date_default_timezone'] = 'Asia/Manila';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] = getenv('APP_URL') ?: 'https://your-render-app.onrender.com/';
+
+// Auto-detect base URL for better Render.com support
+if (getenv('APP_URL')) {
+    $config['base_url'] = getenv('APP_URL');
+} else {
+    // Auto-detect from HTTP headers
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    
+    // Remove port if present (Render adds X-Forwarded-Proto header)
+    if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+        $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
+    }
+    
+    $config['base_url'] = $protocol . $host . '/';
+}
 
 /*
 |--------------------------------------------------------------------------

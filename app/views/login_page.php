@@ -8,7 +8,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
-    <link rel="stylesheet" href="<?= base_url('public/cyber_style.css') ?>">
+    <link rel="stylesheet" href="<?= css_url('cyber_style.css') ?>" type="text/css">
     <style>
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
