@@ -269,13 +269,13 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
                     const glass = document.querySelector('.glass');
                     if (!glass) {
-                        history.back();
+                        window.location.assign('<?= site_url('/') ?>');
                         return;
                     }
 
                     glass.classList.add('leaving');
                     glass.addEventListener('animationend', function() {
-                        history.back();
+                        window.location.assign('<?= site_url('/') ?>');
                     }, { once: true });
                 });
             }
