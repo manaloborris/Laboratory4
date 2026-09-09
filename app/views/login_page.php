@@ -1,6 +1,7 @@
 <?php
 
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
+$login_action = $login_action ?? site_url('login');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +64,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             <div class="cyber-alert cyber-alert-error"><?= htmlspecialchars($_SESSION['__lava_vars']['error']) ?></div>
         <?php endif; ?>
 
-        <form method="post" action="<?= site_url('login') ?>">
+        <form method="post" action="<?= $login_action ?>">
             <div class="cyber-form-group">
                 <label>Username</label>
                 <input type="text" name="username" value="admin" required>

@@ -44,10 +44,15 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 */
 /** @var object $router **/
 
+load_class('config', 'kernel')->load('middleware');
+
 $router->get('/', 'Login::index');
 $router->post('/login', 'Login::login');
 $router->get('/logout', 'Login::logout');
 $router->get('/users', 'UsersController::index');
+
+$router->get('/admin/products', 'Login::product_login');
+$router->post('/admin/products/login', 'Login::login');
 
 $router->group(['prefix' => 'products', 'middleware' => 'auth'], function ($router) {
     $router->get('/', 'ProductController::index');
