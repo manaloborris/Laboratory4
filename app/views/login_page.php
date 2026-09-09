@@ -9,25 +9,28 @@ $login_action = $login_action ?? site_url('login');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
+    <link rel="stylesheet" href="<?= css_url('cyber_style.css') ?>" type="text/css">
 </head>
 <body>
-    <h1>Welcome!</h1>
-    <p>Login to access products.</p>
+    <div class="cyber-shell">
+        <h1 class="cyber-title">Welcome!</h1>
+        <p class="cyber-copy">Login to access products.</p>
 
-    <?php if (isset($_SESSION['__lava_vars']['error'])): ?>
-        <div><?= htmlspecialchars($_SESSION['__lava_vars']['error']) ?></div>
-    <?php endif; ?>
+        <?php if (isset($_SESSION['__lava_vars']['error'])): ?>
+            <div class="cyber-alert cyber-alert-error"><?= htmlspecialchars($_SESSION['__lava_vars']['error']) ?></div>
+        <?php endif; ?>
 
-    <form method="post" action="<?= $login_action ?>">
-        <label>Username</label>
-        <input type="text" name="username" value="admin" required>
+        <form class="cyber-form" method="post" action="<?= $login_action ?>">
+            <label class="cyber-label" for="username">Username</label>
+            <input class="cyber-input" type="text" id="username" name="username" value="admin" required>
 
-        <label>Password</label>
-        <input type="password" name="password" value="admin123" required>
+            <label class="cyber-label" for="password">Password</label>
+            <input class="cyber-input" type="password" id="password" name="password" value="admin123" required>
 
-        <button type="submit">Login</button>
-    </form>
+            <button class="cyber-btn" type="submit">Login</button>
+        </form>
 
-    <a href="<?= site_url('users') ?>">View Users</a>
+        <a class="cyber-link" href="<?= site_url('users') ?>">View Users</a>
+    </div>
 </body>
 </html>

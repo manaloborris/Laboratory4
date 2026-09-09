@@ -18,6 +18,28 @@ if (!function_exists('asset_url')) {
     }
 }
 
+if (!function_exists('asset_base_url')) {
+    /**
+     * Resolve the public asset base consistently for local and deployed environments.
+     *
+     * @return string
+     */
+    function asset_base_url() {
+        $configured = getenv('APP_URL') ?: getenv('BASE_URL') ?: (defined('BASE_URL') ? BASE_URL : null);
+        if (!empty($configured)) {
+            return rtrim((string) $configured, '/') . '/';
+        }
+
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
+        }
+
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        return $protocol . $host . '/';
+    }
+}
+
 if (!function_exists('css_url')) {
     /**
      * Generate CSS file URL
@@ -28,13 +50,7 @@ if (!function_exists('css_url')) {
      */
     function css_url($filename) {
         $filename = ltrim($filename, '/');
-        // The Docker image serves the public directory as Apache's document root.
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-            $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
-        }
-        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-        return $protocol . $host . '/' . $filename;
+        return asset_base_url() . $filename;
     }
 }
 
@@ -48,13 +64,7 @@ if (!function_exists('js_url')) {
      */
     function js_url($filename) {
         $filename = ltrim($filename, '/');
-        // The Docker image serves the public directory as Apache's document root.
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-            $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
-        }
-        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-        return $protocol . $host . '/' . $filename;
+        return asset_base_url() . $filename;
     }
 }
 if (!function_exists('img_url')) {
@@ -67,12 +77,6 @@ if (!function_exists('img_url')) {
      */
     function img_url($filename) {
         $filename = ltrim($filename, '/');
-        // The Docker image serves the public directory as Apache's document root.
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-            $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
-        }
-        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-        return $protocol . $host . '/' . $filename;
+        return asset_base_url() . $filename;
     }
 }
