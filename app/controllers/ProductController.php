@@ -19,7 +19,7 @@ class ProductController extends Controller
         }
 
         if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
-            header('Location: ' . site_url('admin/products'));
+            header('Location: ' . site_url(''));
             exit;
         }
     }
