@@ -49,9 +49,6 @@ $router->post('/login', 'Login::login');
 $router->get('/logout', 'Login::logout');
 $router->get('/users', 'UsersController::index');
 
-$router->get('/admin/products', 'Login::product_login');
-$router->post('/admin/products/login', 'Login::login');
-
 $router->group(['prefix' => 'products'], function ($router) {
     $router->get('/', 'ProductController::index');
     $router->get('/create', 'ProductController::create');

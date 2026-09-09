@@ -5,19 +5,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 class Login extends Controller {
     public function index() {
         $this->call->library('session');
-        $this->call->view('login_page', ['login_action' => site_url('login')]);
-    }
-
-    public function product_login()
-    {
-        $this->call->library('session');
-
-        if ($this->session->has_userdata('is_logged_in') && $_SESSION['is_logged_in'] === true) {
-            header('Location: ' . site_url('products'));
-            exit;
-        }
-
-        $this->call->view('login_page', ['login_action' => site_url('admin/products/login')]);
+        $this->call->view('login_page');
     }
 
     public function login()
@@ -36,7 +24,7 @@ class Login extends Controller {
         }
 
         $this->session->set_flashdata('error', 'Invalid username or password.');
-        header('Location: ' . site_url('admin/products'));
+        header('Location: ' . site_url(''));
         exit;
     }
 
@@ -44,7 +32,7 @@ class Login extends Controller {
     {
         $this->call->library('session');
         $this->session->sess_destroy();
-        header('Location: ' . site_url('admin/products'));
+        header('Location: ' . site_url(''));
         exit;
     }
 }
