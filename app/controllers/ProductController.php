@@ -12,6 +12,18 @@ class ProductController extends Controller
         $this->call->library('session');
     }
 
+    public function before_action()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
+            header('Location: ' . site_url('admin/products'));
+            exit;
+        }
+    }
+
     public function index()
     {
         $products = $this->ProductModel->all();
