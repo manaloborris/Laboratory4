@@ -3,7 +3,7 @@ services:
     name: laboratory4
     runtime: php
     plan: free
-    
+
     # Environment variables
     envVars:
       - key: APP_ENV
@@ -12,6 +12,24 @@ services:
         # Set this to your actual Render service URL
         # Example: https://laboratory4.onrender.com/
         value: https://your-render-app-name.onrender.com/
-    
+      - key: DB_DRIVER
+        value: mysql
+      - key: DB_HOST
+        value: borrismanalo-manaloborris153-f49a.h.aivencloud.com
+      - key: DB_PORT
+        value: 23249
+      - key: DB_USER
+        value: avnadmin
+      - key: DB_PASSWORD
+        value: SET_YOUR_AIVEN_PASSWORD
+      - key: DB_NAME
+        value: lab5
+      - key: DB_CHARSET
+        value: utf8mb4
+      - key: DB_PREFIX
+        value: ""
+      - key: DB_SSL
+        value: true
+
     # Optional: buildCommand if you need to run setup
     # buildCommand: php app/migrations/001_create_users_table.php
