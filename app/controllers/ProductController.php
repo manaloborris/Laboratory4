@@ -14,9 +14,7 @@ class ProductController extends Controller
 
     public function before_action()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->call->library('session');
 
         if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
             header('Location: ' . site_url(''));
