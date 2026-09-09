@@ -57,7 +57,25 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
     <canvas id="cute3d-bg"></canvas>
     <div class="cyber-shell">
         <h1 class="cyber-title">Welcome!</h1>
-        <p class="cyber-copy">Click the Bu is tton.</p>
+        <p class="cyber-copy">Login to access products.</p>
+
+        <?php if (isset($_SESSION['__lava_vars']['error'])): ?>
+            <div class="cyber-alert cyber-alert-error"><?= htmlspecialchars($_SESSION['__lava_vars']['error']) ?></div>
+        <?php endif; ?>
+
+        <form method="post" action="<?= site_url('login') ?>">
+            <div class="cyber-form-group">
+                <label>Username</label>
+                <input type="text" name="username" value="admin" required>
+            </div>
+            <div class="cyber-form-group">
+                <label>Password</label>
+                <input type="password" name="password" value="admin123" required>
+            </div>
+            <button class="cyber-btn" type="submit">Login</button>
+        </form>
+
+        <div class="cyber-spacer"></div>
         <a class="cyber-btn" href="<?= site_url('users') ?>" data-link>View Users</a>
     </div>
 
